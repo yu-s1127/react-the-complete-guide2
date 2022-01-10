@@ -10,7 +10,7 @@ import React, {
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
 import Button from '../UI/Button/Button';
-import { useAuthContext } from '../../store/auth-context';
+import useAuth from '../../hooks/useAuth';
 
 const emailReducer = (
   state: { value: string },
@@ -40,7 +40,7 @@ const passwordReducer = (
 
 const Login: FC = () => {
   const [formIsValid, setFormIsValid] = useState<boolean>(false);
-  const { setIsLoggedIn } = useAuthContext();
+  const { loginHandler } = useAuth();
 
   const [emailState, dispatchEmail] = useReducer(emailReducer, {
     value: '',
@@ -79,14 +79,9 @@ const Login: FC = () => {
     dispatchPassword({ type: 'INPUT_BLUR' });
   };
 
-  const loginHandler = (email: string, password: string) => {
-    localStorage.setItem('isLoggedIn', '1');
-    setIsLoggedIn(true);
-  };
-
   const submitHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    loginHandler(emailState.value, passwordState.value);
+    loginHandler();
   };
 
   return (
