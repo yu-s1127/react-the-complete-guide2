@@ -1,14 +1,13 @@
 import React, { FC } from 'react';
+import useAuth from '../../hooks/useAuth';
 import { useAuthContext } from '../../store/auth-context';
 
 import classes from './Navigation.module.css';
 
-interface Props {
-  onLogout: () => void;
-}
-
-const Navigation: FC<Props> = (props) => {
+const Navigation: FC = () => {
   const { isLoggedIn } = useAuthContext();
+  const { logoutHandler } = useAuth();
+
   return (
     <nav className={classes.nav}>
       <ul>
@@ -24,7 +23,7 @@ const Navigation: FC<Props> = (props) => {
         )}
         {isLoggedIn && (
           <li>
-            <button onClick={props.onLogout}>Logout</button>
+            <button onClick={logoutHandler}>Logout</button>
           </li>
         )}
       </ul>

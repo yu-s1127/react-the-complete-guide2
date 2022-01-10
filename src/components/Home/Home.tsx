@@ -1,17 +1,12 @@
 import React, { FC } from 'react';
-import { useAuthContext } from '../../store/auth-context';
-import Button from '../UI/Button/Button';
 
+import Button from '../UI/Button/Button';
 import Card from '../UI/Card/Card';
 import classes from './Home.module.css';
+import useAuth from '../../hooks/useAuth';
 
 const Home: FC = () => {
-  const { setIsLoggedIn } = useAuthContext();
-
-  const logoutHandler = () => {
-    localStorage.removeItem('isLoggedIn');
-    setIsLoggedIn(false);
-  };
+  const { logoutHandler } = useAuth();
 
   return (
     <Card className={classes.home}>
