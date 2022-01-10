@@ -2,20 +2,20 @@ import React, { FC } from 'react';
 
 import Navigation from './Navigation';
 import classes from './MainHeader.module.css';
+import { useAuthContext } from '../../store/auth-context';
 
-interface Props {
-  isAuthenticated: boolean;
-  onLogout: () => void;
-}
+const MainHeader: FC = () => {
+  const { setIsLoggedIn } = useAuthContext();
 
-const MainHeader: FC<Props> = (props) => {
+  const logoutHandler = () => {
+    localStorage.removeItem('isLoggedIn');
+    setIsLoggedIn(false);
+  };
+
   return (
     <header className={classes['main-header']}>
       <h1>A Typical Page</h1>
-      <Navigation
-        isLoggedIn={props.isAuthenticated}
-        onLogout={props.onLogout}
-      />
+      <Navigation onLogout={logoutHandler} />
     </header>
   );
 };
