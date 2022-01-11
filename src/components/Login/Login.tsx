@@ -89,6 +89,12 @@ const Login: FC = () => {
     if (formIsValid) {
       loginHandler();
     } else if (!emailState.isValid) {
+      setProperFocus();
+    }
+  };
+
+  const setProperFocus = () => {
+    if (!emailState.isValid) {
       emailInputRef.current?.focus();
     } else if (!passwordState.isValid) {
       passwordInputRef.current?.focus();
